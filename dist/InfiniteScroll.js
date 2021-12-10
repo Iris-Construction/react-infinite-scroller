@@ -41,6 +41,7 @@ var InfiniteScroll = function (_Component) {
   _createClass(InfiniteScroll, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      console.log("componentDidMount");
       this.pageLoaded = this.props.pageStart;
       this.options = this.eventListenerOptions();
       this.attachScrollListener();
