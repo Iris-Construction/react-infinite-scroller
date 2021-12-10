@@ -41,21 +41,12 @@ export default class InfiniteScroll extends Component {
   }
 
   componentDidMount() {
-    window.console.log("componentDidMount")
     this.pageLoaded = this.props.pageStart;
     this.options = this.eventListenerOptions();
     this.attachScrollListener();
   }
 
   componentDidUpdate() {
-    if (this.props.isReverse && this.loadMore) {
-      const parentElement = this.getParentElement(this.scrollComponent);
-      parentElement.scrollTop =
-        parentElement.scrollHeight -
-        this.beforeScrollHeight +
-        this.beforeScrollTop;
-      this.loadMore = false;
-    }
     this.attachScrollListener();
   }
 
@@ -202,16 +193,15 @@ export default class InfiniteScroll extends Component {
           ? scrollEl.pageYOffset
           : doc.scrollTop;
       if (this.props.isReverse) {
-        offset = scrollTop;
+        offset = this.calculateOffset(el, -scrollTop);
       } else {
         offset = this.calculateOffset(el, scrollTop);
       }
     } else if (this.props.isReverse) {
-      offset = parentNode.scrollTop;
+      offset = el.scrollHeight + parentNode.scrollTop - parentNode.clientHeight;
     } else {
       offset = el.scrollHeight - parentNode.scrollTop - parentNode.clientHeight;
     }
-    window.console.log(offset);
     // Here we make sure the element is visible as well as checking the offset
     if (
       offset < Number(this.props.threshold) &&
