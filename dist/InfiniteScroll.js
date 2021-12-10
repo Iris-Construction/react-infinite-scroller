@@ -41,7 +41,7 @@ var InfiniteScroll = function (_Component) {
   _createClass(InfiniteScroll, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      console.log("componentDidMount");
+      window.console.log("componentDidMount");
       this.pageLoaded = this.props.pageStart;
       this.options = this.eventListenerOptions();
       this.attachScrollListener();
@@ -193,7 +193,7 @@ var InfiniteScroll = function (_Component) {
       } else {
         offset = el.scrollHeight - parentNode.scrollTop - parentNode.clientHeight;
       }
-      console.log(offest);
+      window.console.log(offset);
       // Here we make sure the element is visible as well as checking the offset
       if (offset < Number(this.props.threshold) && el && el.offsetParent !== null) {
         this.detachScrollListener();
